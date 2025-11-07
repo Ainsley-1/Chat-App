@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background: #001ea5;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chat-container {
+            width: 400px;
+            height: 600px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background: #010f4e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            border-bottom: 1px solid #eee;
+        }
+        .message {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+        }
+        .message.own {
+            background: #e3f2fd;
+            margin-left: auto;
+            text-align: right;
+        }
+        .message.other {
+            background: #f5f5f5;
+        }
+        .message-sender {
+            font-weight: bold;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .message-text {
+            margin: 5px 0;
+        }
+        .message-time {
+            font-size: 0.8em;
+            color: #999;
+        }
+        .typing-indicator {
+            color: #666;
+            font-style: italic;
+            padding: 5px 20px;
+            font-size: 0.9em;
+        }
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            gap: 10px;
+        }
+        #messageInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            outline: none;
+        }
+        #sendButton {
+            padding: 10px 20px;
+            background: #027506de;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        #sendButton:hover {
+            background: #45a049;
+        }
+        .login-container {
+            text-align: center;
+            padding: 20px;
+        }
+        #usernameInput {
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 200px;
+        }
+        #joinButton {
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <h1>Chat App</h1>
+            <div id="userCount">0 users online</div>
+        </div>
+        
+        <div id="loginScreen" class="login-container">
+            <h3>Enter your username to join the chat</h3>
+            <input type="text" id="usernameInput" placeholder="Your username" maxlength="20">
+            <button id="joinButton">Join Chat</button>
+        </div>
+
+        <div id="chatScreen" style="display: none; height: 100%; flex-direction: column;">
+            <div class="chat-messages" id="messages"></div>
+            <div class="typing-indicator" id="typingIndicator"></div>
+            <div class="chat-input">
+                <input type="text" id="messageInput" placeholder="Type a message..." disabled>
+                <button id="sendButton" disabled>Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+</body>
+</html>
